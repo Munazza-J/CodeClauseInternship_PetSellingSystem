@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CozyPaws | Home</title>
+    <title>CozyPaws – Login/Register</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -13,347 +13,287 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="CSS/styles.css" />
-    <link
-      rel="icon"
-      href="Images/catdogfavicon2.png"
-      sizes="512x512"
-      type="image/png"
-    />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f2e3d5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .auth-wrapper {
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      .auth-wrapper.visible {
+        opacity: 1;
+      }
+
+      .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 80px); /* if your navbar is about 80px tall */
+        padding: 2rem 1rem;
+      }
+
+      .auth-container {
+        align-items: center;
+        width: 100%;
+        max-width: 960px;
+        background-color: #fff6e5;
+        border-radius: 20px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .auth-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .auth-left,
+      .auth-right {
+        flex: 1;
+      }
+
+      .auth-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      .auth-right img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .tab-switch {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        gap: 1rem;
+      }
+
+      .tab-switch button {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 25px;
+        background-color: #e5d4ba;
+        color: #2c2c2c;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .tab-switch button.active {
+        background-color: #f9a36c;
+        color: white;
+      }
+
+      .form {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form.active {
+        display: flex;
+      }
+
+      .form h2 {
+        font-family: 'Amatica SC', cursive;
+        color: #1e2749;
+        font-size: 2.2rem;
+      }
+
+      .form input {
+        padding: 0.8rem 1rem;
+        border-radius: 25px;
+        border: 1px solid #e5d4ba;
+        font-size: 1rem;
+        background-color: #fff;
+        color: #2c2c2c;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .form button {
+        padding: 0.8rem 1rem;
+        border-radius: 25px;
+        border: none;
+        background-color: #318186;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .form button:hover {
+        background-color: #276a6e;
+      }
+
+      .message {
+        font-size: 0.95rem;
+        color: #318186;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      /* Logo intro screen */
+      .intro-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff6e5;
+        height: 100vh;
+        transition: opacity 1s ease;
+        z-index: 100;
+      }
+
+      .logo-image {
+        width: 500px;
+        height: auto;
+        animation: fadeInLogo 1s ease;
+      }
+
+      @keyframes fadeInLogo {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Hidden auth page initially */
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <header class="navbar">
-      <div class="logo">CozyPaws</div>
-      <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="adopt.html">Adopt</a>
-        <a href="buy.html">Buy</a>
-        <a href="upload.html">Upload</a>
-        <a href="#contact">Contact</a>
-        <button id="logout-btn" class="logout-btn">Logout</button>
-      </nav>
-    </header>
+    <div class="intro-screen">
+      <img
+        src="Images/cozypawslogo.png"
+        alt="Cozypaws Logo"
+        class="logo-image"
+      />
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-text">
-        <h1>Adopt Love. Share Joy.</h1>
-        <p>
-          Give a home to a pet that needs one — or connect with pet lovers to
-          buy or sell responsibly.
-        </p>
-        <div class="hero-buttons">
-          <a href="adopt.html" class="cta-btn">Adopt a Pet</a>
-          <a href="buy.html" class="alt-btn">Buy/Sell Pets</a>
-        </div>
-      </div>
-      <div class="hero-img">
-        <img src="Images/cozypawslogo.png" alt="Adoptable Pet" />
-      </div>
-    </section>
-
-    <!-- Featured for Adoption -->
-    <section class="featured" id="adopt">
-      <h2>Meet Pets Waiting for You</h2>
-
-      <div class="pet-carousel">
-        <!-- Scroll Button: Left -->
-        <button class="scroll-btn left">‹</button>
-
-        <!-- Scrollable Wrapper -->
-        <div class="scroll-wrapper">
-          <div class="pet-grid" id="petGrid">
-            <!-- Pet Cards -->
-            <div class="pet-card" data-status="adopt">
-              <img src="Images/dog15.avif" alt="Simba" />
-              <div class="pet-info">
-                <h3>Simba</h3>
-                <p>Golden Retriever · 3 months · Bangalore</p>
-                <div class="pet-tag">Adopt</div>
-                <div class="pet-details">
-                  <p>Age: 3 months</p>
-                  <p>Playful and energetic, loves outdoors.</p>
-                </div>
-              </div>
+    <div class="auth-wrapper hidden">
+      <div class="auth-container">
+        <div class="auth-box">
+          <div class="auth-left">
+            <div class="tab-switch">
+              <button id="registerTab" class="active">Register</button>
+              <button id="loginTab">Login</button>
             </div>
 
-            <div class="pet-card" data-status="buy">
-              <img src="Images/cat23.avif" alt="Bella" />
-              <div class="pet-info">
-                <h3>Bella</h3>
-                <p>Tabby Cat · 2 yrs · Chennai</p>
-                <div class="pet-tag">Buy</div>
-                <div class="pet-details">
-                  <p>Age: 2 years</p>
-                  <p>Calm and affectionate lap cat.</p>
-                </div>
-              </div>
-            </div>
+            <div id="message" class="message"></div>
 
-            <div class="pet-card" data-status="adopt-buy">
-              <img src="Images/rabbit3.avif" alt="Clover" />
-              <div class="pet-info">
-                <h3>Clover</h3>
-                <p>Holland Lop · 1 yr · Pune</p>
-                <div class="pet-tag">Adopt / Buy</div>
-                <div class="pet-details">
-                  <p>Age: 1 year</p>
-                  <p>Loves cuddles, quiet and gentle.</p>
-                </div>
-              </div>
-            </div>
+            <!-- REGISTER FORM -->
+            <form id="registerForm" class="form active" autocomplete="off">
+              <h2>Create Account</h2>
 
-            <div class="pet-card" data-status="adopt">
-              <img src="Images/dog17.avif" alt="Candice" />
-              <div class="pet-info">
-                <h3>Candice</h3>
-                <p>Indie Mix · 1 yr · Bangalore</p>
-                <div class="pet-tag">Adopt</div>
-                <div class="pet-details">
-                  <p>Age: 1 year</p>
-                  <p>Very social and loyal companion.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="text"
+                id="regName"
+                placeholder="Name"
+                name="name"
+                required
+                autocomplete="off"
+              />
 
-            <div class="pet-card" data-status="buy">
-              <img src="Images/cat22.avif" alt="Simba" />
-              <div class="pet-info">
-                <h3>Simba</h3>
-                <p>Tabby Cat · 2 yrs · Delhi</p>
-                <div class="pet-tag">Buy</div>
-                <div class="pet-details">
-                  <p>Age: 2 years</p>
-                  <p>Smart and independent nature.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="email"
+                id="regEmail"
+                placeholder="Email"
+                name="email"
+                required
+                autocomplete="off"
+                title="Enter a valid email address"
+              />
 
-            <div class="pet-card" data-status="adopt-buy">
-              <img src="Images/cat22.avif" alt="Alex" />
-              <div class="pet-info">
-                <h3>Alex</h3>
-                <p>Mixed Stray · 1 yr · Pune</p>
-                <div class="pet-tag">Adopt / Buy</div>
-                <div class="pet-details">
-                  <p>Age: 1 year</p>
-                  <p>Loves attention and toys.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="tel"
+                id="regPhone"
+                name="phone"
+                placeholder="Phone Number"
+                required
+                autocomplete="off"
+                pattern="[0-9]{10}"
+                title="Enter a 10-digit phone number (digits only)"
+              />
 
-            <div class="pet-card" data-status="adopt">
-              <img src="Images/dog7.png" alt="Milo" />
-              <div class="pet-info">
-                <h3>Milo</h3>
-                <p>Beagle · 5 months · Hyderabad</p>
-                <div class="pet-tag">Adopt</div>
-                <div class="pet-details">
-                  <p>Age: 5 months</p>
-                  <p>Cheerful, curious, and great with kids.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="password"
+                id="regPassword"
+                placeholder="Password"
+                name="new-password"
+                required
+                autocomplete="new-password"
+                minlength="8"
+                title="Password must be at least 8 characters"
+              />
 
-            <div class="pet-card" data-status="buy">
-              <img src="Images/cat22.avif" alt="Luna" />
-              <div class="pet-info">
-                <h3>Luna</h3>
-                <p>Persian Cat · 1.5 yrs · Mumbai</p>
-                <div class="pet-tag">Buy</div>
-                <div class="pet-details">
-                  <p>Age: 1.5 years</p>
-                  <p>Fluffy and elegant, loves pampering.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="password"
+                id="regConfirm"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                required
+                autocomplete="new-password"
+                minlength="8"
+                title="Must match the password above"
+              />
 
-            <div class="pet-card" data-status="adopt-buy">
-              <img src="Images/rabbit4.avif" alt="Hazel" />
-              <div class="pet-info">
-                <h3>Hazel</h3>
-                <p>Mini Rex · 2 yrs · Jaipur</p>
-                <div class="pet-tag">Adopt / Buy</div>
-                <div class="pet-details">
-                  <p>Age: 2 years</p>
-                  <p>Softest fur, cuddly and sweet-tempered.</p>
-                </div>
-              </div>
-            </div>
+              <button type="submit">Register</button>
+            </form>
 
-            <div class="pet-card" data-status="buy">
-              <img src="Images/dog16.avif" alt="Bruno" />
-              <div class="pet-info">
-                <h3>Bruno</h3>
-                <p>Doberman · 1 yr · Kolkata</p>
-                <div class="pet-tag">Buy</div>
-                <div class="pet-details">
-                  <p>Age: 1 year</p>
-                  <p>Alert, loyal, and great for security.</p>
-                </div>
-              </div>
-            </div>
+            <!-- LOGIN FORM -->
+            <form id="loginForm" class="form" autocomplete="off">
+              <h2>Welcome Back</h2>
 
-            <div class="pet-card" data-status="adopt">
-              <img src="Images/cat22.avif" alt="Nala" />
-              <div class="pet-info">
-                <h3>Nala</h3>
-                <p>Calico · 3 yrs · Goa</p>
-                <div class="pet-tag">Adopt</div>
-                <div class="pet-details">
-                  <p>Age: 3 years</p>
-                  <p>Very calm and nurturing personality.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email"
+                name="name"
+                required
+                autocomplete="off"
+              />
 
-            <div class="pet-card" data-status="adopt-buy">
-              <img src="Images/dog16.avif" alt="Rocky" />
-              <div class="pet-info">
-                <h3>Rocky</h3>
-                <p>Mixed Breed · 8 months · Nagpur</p>
-                <div class="pet-tag">Adopt / Buy</div>
-                <div class="pet-details">
-                  <p>Age: 8 months</p>
-                  <p>Energetic and playful, great for active families.</p>
-                </div>
-              </div>
-            </div>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                name="current-password"
+                required
+                autocomplete="current-password"
+              />
+
+              <button type="submit">Login</button>
+            </form>
           </div>
-        </div>
 
-        <!-- Scroll Button: Right -->
-        <button class="scroll-btn right">›</button>
-      </div>
-
-      <!--<a href="#shop" class="view-more">View All Pets</a>-->
-    </section>
-
-    <!-- Why Adopt Section -->
-    <section class="why-adopt">
-      <h2>Why Adoption Matters</h2>
-      <div class="adopt-benefits">
-        <div class="benefit">
-          <img src="Images/catdogrescue.avif" alt="Rescue" />
-          <h4>Save a Life</h4>
-          <p>
-            Millions of animals are waiting in shelters — your choice can give
-            them a second chance.
-          </p>
-        </div>
-        <div class="benefit">
-          <img src="Images/catdogcompanion.avif" alt="Home" />
-          <h4>Find Real Companionship</h4>
-          <p>
-            Adopted pets are loyal, loving, and often the most grateful friends
-            you’ll ever meet.
-          </p>
-        </div>
-        <div class="benefit">
-          <img src="Images/cat1.jpg" alt="Eco Friendly" />
-          <h4>Make a Kind Choice</h4>
-          <p>
-            Support a sustainable, humane alternative to unethical breeding
-            practices.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section class="why-choose" id="about">
-      <h2>Why CozyPaws?</h2>
-      <div class="features">
-        <div class="feature">
-          <img src="Images/catvet.avif" alt="Healthy" />
-          <h4>Vet-Checked</h4>
-          <p>
-            All pets are examined by certified professionals before listing.
-          </p>
-        </div>
-        <div class="feature">
-          <img src="Images/dogrescue.avif" alt="Love" />
-          <h4>Adoption First</h4>
-          <p>We prioritize loving homes for rescued or abandoned animals.</p>
-        </div>
-        <div class="feature">
-          <img src="Images/petowner.avif" alt="Safe" />
-          <h4>Trusted Platform</h4>
-          <p>Verified sellers and safe communication between users.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <h2>Happy Tails</h2>
-      <div class="testimonial-list">
-        <div class="testimonial">
-          <p>
-            "We found our sweet labrador through CozyPaws. She's brought so much
-            happiness!"
-          </p>
-          <span>— Arjun & Maya, Chennai</span>
-        </div>
-        <div class="testimonial">
-          <p>
-            "Thank you for helping me rehome my rescued kittens to loving
-            families."
-          </p>
-          <span>— Zoya, Hyderabad</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter Signup -->
-    <section class="newsletter">
-      <h2>Stay Connected</h2>
-      <p>
-        Receive weekly updates on new pets for adoption, tips for pet care, and
-        heartwarming success stories.
-      </p>
-      <form action="#" method="POST">
-        <input type="email" placeholder="Your email" required />
-        <button type="submit">Subscribe</button>
-      </form>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" id="contact">
-      <div class="footer-content">
-        <div>
-          <h4>CozyPaws</h4>
-          <p>Creating forever homes, one paw at a time 🐾</p>
-        </div>
-        <div>
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="adopt.html">Adopt</a></li>
-            <li><a href="buy.html">Buy</a></li>
-            <li><a href="#about">About</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Follow Us</h4>
-          <div class="socials">
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              aria-label="Instagram"
-              ><i class="fab fa-instagram fa-lg"></i
-            ></a>
-            |
-            <a href="https://github.com" target="_blank" aria-label="GitHub"
-              ><i class="fab fa-github fa-lg"></i
-            ></a>
-            |
-            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"
-              ><i class="fab fa-linkedin fa-lg"></i
-            ></a>
+          <div class="auth-right">
+            <img src="Images/cozypawslogoalt.png" alt="CozyPaws Logo" />
           </div>
         </div>
       </div>
-      <p class="copyright">&copy; 2025 CozyPaws. Made with by Munazza.</p>
-    </footer>
-    <script src="JS/index.js"></script>
+    </div>
+    <script src="JS/auth.js"></script>
   </body>
 </html>
