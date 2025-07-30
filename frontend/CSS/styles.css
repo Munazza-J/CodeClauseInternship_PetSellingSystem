@@ -38,8 +38,8 @@
 }
 
 body {
-  background-color: VAR(--bg-main);
-  color: var(--text-main);
+  background-color: #fff6e5;
+  color: #2c2c2c;
   line-height: 1.6;
 }
 
@@ -52,7 +52,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: var(--primary);
+  color: #318186;
   font-family: 'Amatica SC', cursive;
 }
 
@@ -132,7 +132,7 @@ img {
 .hero-text h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  font-family: var(--font-subheading);
+  font-family: 'Amarante', cursive;
 }
 
 .hero-text p {
