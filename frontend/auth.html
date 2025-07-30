@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CozyPaws – Login/Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amarante&family=Amatica+SC&family=Nothing+You+Could+Do&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f2e3d5;
+        margin: 0;
+        padding: 0;
+      }
+
+      .auth-wrapper {
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      .auth-wrapper.visible {
+        opacity: 1;
+      }
+
+      .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 80px); /* if your navbar is about 80px tall */
+        padding: 2rem 1rem;
+      }
+
+      .auth-container {
+        align-items: center;
+        width: 100%;
+        max-width: 960px;
+        background-color: #fff6e5;
+        border-radius: 20px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .auth-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .auth-left,
+      .auth-right {
+        flex: 1;
+      }
+
+      .auth-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 16px;
+        padding: 1rem;
+      }
+
+      .auth-right img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .tab-switch {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        gap: 1rem;
+      }
+
+      .tab-switch button {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 25px;
+        background-color: #e5d4ba;
+        color: #2c2c2c;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .tab-switch button.active {
+        background-color: #f9a36c;
+        color: white;
+      }
+
+      .form {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form.active {
+        display: flex;
+      }
+
+      .form h2 {
+        font-family: 'Amatica SC', cursive;
+        color: #1e2749;
+        font-size: 2.2rem;
+      }
+
+      .form input {
+        padding: 0.8rem 1rem;
+        border-radius: 25px;
+        border: 1px solid #e5d4ba;
+        font-size: 1rem;
+        background-color: #fff;
+        color: #2c2c2c;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .form button {
+        padding: 0.8rem 1rem;
+        border-radius: 25px;
+        border: none;
+        background-color: #318186;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .form button:hover {
+        background-color: #276a6e;
+      }
+
+      .message {
+        font-size: 0.95rem;
+        color: #318186;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      /* Logo intro screen */
+      .intro-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff6e5;
+        height: 100vh;
+        transition: opacity 1s ease;
+        z-index: 100;
+      }
+
+      .logo-image {
+        width: 500px;
+        height: auto;
+        animation: fadeInLogo 1s ease;
+      }
+
+      @keyframes fadeInLogo {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Hidden auth page initially */
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro-screen">
+      <img
+        src="Images/cozypawslogo.png"
+        alt="Cozypaws Logo"
+        class="logo-image"
+      />
+    </div>
+
+    <div class="auth-wrapper hidden">
+      <div class="auth-container">
+        <div class="auth-box">
+          <div class="auth-left">
+            <div class="tab-switch">
+              <button id="registerTab" class="active">Register</button>
+              <button id="loginTab">Login</button>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" class="form active" autocomplete="off">
+              <h2>Create Account</h2>
+
+              <input
+                type="text"
+                id="regName"
+                placeholder="Name"
+                name="name"
+                required
+                autocomplete="off"
+              />
+
+              <input
+                type="email"
+                id="regEmail"
+                placeholder="Email"
+                name="email"
+                required
+                autocomplete="off"
+                title="Enter a valid email address"
+              />
+
+              <input
+                type="tel"
+                id="regPhone"
+                name="phone"
+                placeholder="Phone Number"
+                required
+                autocomplete="off"
+                pattern="[0-9]{10}"
+                title="Enter a 10-digit phone number (digits only)"
+              />
+
+              <input
+                type="password"
+                id="regPassword"
+                placeholder="Password"
+                name="new-password"
+                required
+                autocomplete="new-password"
+                minlength="8"
+                title="Password must be at least 8 characters"
+              />
+
+              <input
+                type="password"
+                id="regConfirm"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                required
+                autocomplete="new-password"
+                minlength="8"
+                title="Must match the password above"
+              />
+
+              <button type="submit">Register</button>
+            </form>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" class="form" autocomplete="off">
+              <h2>Welcome Back</h2>
+
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email"
+                name="name"
+                required
+                autocomplete="off"
+              />
+
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                name="current-password"
+                required
+                autocomplete="current-password"
+              />
+
+              <button type="submit">Login</button>
+            </form>
+          </div>
+
+          <div class="auth-right">
+            <img src="Images/cozypawslogoalt.png" alt="CozyPaws Logo" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="JS/auth.js"></script>
+  </body>
+</html>

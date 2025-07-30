@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy Pet | CozyPaws</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amarante&family=Amatica+SC&family=Nothing+You+Could+Do&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fffaf3;
+      }
+
+      .buy-form-wrapper {
+        max-width: 800px;
+        margin: 5rem auto;
+        padding: 2.5rem;
+        background-color: #f2e3d5;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .buy-form-wrapper h2 {
+        text-align: center;
+        font-family: 'Amatica SC', cursive;
+        font-size: 2.8rem;
+        color: #318186;
+        margin-bottom: 1.5rem;
+      }
+
+      .pet-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .pet-preview img {
+        width: 300px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 14px;
+      }
+
+      .pet-pet {
+        flex: 1;
+        min-width: 250px;
+        max-width: 100%;
+        word-wrap: break-word;
+      }
+
+      .pet-pet p {
+        margin: 0.5rem 0;
+        font-size: 1.05rem;
+      }
+
+      #rzp-button {
+        margin-top: 2rem;
+        display: block;
+        width: 100%;
+        background-color: #f9a36c;
+        color: white;
+        padding: 0.8rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      #rzp-button:hover {
+        background-color: #fa8e48;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="logo">CozyPaws</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="adopt.html">Adopt</a>
+        <a href="buy.html" aria-current="page">Buy</a>
+        <a href="upload.html">Upload</a>
+        <a href="#contact">Contact</a>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="buy-form-wrapper">
+      <h2>Confirm Purchase</h2>
+      <div id="petDetails">
+        <p>Loading pet details...</p>
+      </div>
+      <button id="rzp-button">Pay Now</button>
+    </section>
+
+    <!-- Footer (optional) -->
+    <footer class="footer" id="contact" style="margin-top: 4rem">
+      <div class="footer-content">
+        <div>
+          <h4>CozyPaws</h4>
+          <p>Creating forever homes, one paw at a time 🐾</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="adopt.html">Adopt</a></li>
+            <li><a href="buy.html">Buy/Sell</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <div class="socials">
+            <a href="https://instagram.com" target="_blank"
+              ><i class="fab fa-instagram fa-lg"></i
+            ></a>
+            |
+            <a href="https://github.com" target="_blank"
+              ><i class="fab fa-github fa-lg"></i
+            ></a>
+            |
+            <a href="https://linkedin.com" target="_blank"
+              ><i class="fab fa-linkedin fa-lg"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 CozyPaws. Made with ❤ by Munazza.</p>
+    </footer>
+
+    <!-- Script -->
+    <script>
+      const petDetails = document.getElementById('petDetails');
+      const urlParams = new URLSearchParams(window.location.search);
+      const petId = urlParams.get('id');
+      let currentPet = null;
+
+      async function fetchPet() {
+        try {
+          const res = await fetch(`http://localhost:3000/api/pets/${petId}`);
+          const data = await res.json();
+          console.log('Pet data received:', data);
+          currentPet = data;
+
+          petDetails.innerHTML = `
+  <div class="pet-preview">
+    <img src="http://localhost:3000${data.image}" alt="${data.name}" />
+    <div class="pet-pet">
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Type:</strong> ${data.type}</p>
+      <p><strong>Breed:</strong> ${data.breed || 'N/A'}</p>
+      <p><strong>Age:</strong> ${data.age} yrs</p>
+      <p><strong>Gender:</strong> ${data.gender}</p>
+      <p><strong>Medical Info:</strong> ${data.medical}</p>
+      <p><strong>Description:</strong> ${data.description}</p>
+      <p><strong>Price:</strong> ₹${data.price}</p>
+      </div>
+  </div>
+`;
+        } catch (err) {
+          petInfo.innerHTML = `<p>Could not fetch pet info.</p>`;
+          console.error(err);
+        }
+      }
+
+      fetchPet();
+
+      document.getElementById('rzp-button').onclick = function (e) {
+        if (!currentPet) return alert('Pet details not loaded yet.');
+
+        const options = {
+          key: 'YOUR_RAZORPAY_KEY', // Replace this with your actual Razorpay key
+          amount: currentPet.price * 100, // Razorpay uses paise
+          currency: 'INR',
+          name: 'CozyPaws',
+          description: `Buying ${currentPet.name}`,
+          image: 'Images/cozypawslogo.png', // optional logo
+          handler: function (response) {
+            fetch(`http://localhost:3000/api/purchase/${petId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ paymentId: response.razorpay_payment_id }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                alert('Payment successful! Your pet is now reserved.');
+                window.location.href = 'success.html';
+              })
+              .catch((err) => {
+                alert(
+                  'Payment processed, but something went wrong on our side.'
+                );
+              });
+          },
+          prefill: {
+            name: 'Your Name',
+            email: 'your@email.com',
+          },
+          theme: {
+            color: '#f9a36c',
+          },
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+        e.preventDefault();
+      };
+
+      // Logout button
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'auth.html';
+      });
+    </script>
+  </body>
+</html>

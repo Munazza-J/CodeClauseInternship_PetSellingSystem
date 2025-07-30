@@ -1,0 +1,118 @@
+[
+  {
+    "id": 1753556383238,
+    "name": "selena",
+    "age": "5 months",
+    "type": "cat",
+    "price": "0",
+    "status": "adoption",
+    "medical": "vaccinated",
+    "description": "playfull",
+    "imageUrl": "/uploads/1753556383217-cat2.webp"
+  },
+  {
+    "id": 1753619782078,
+    "name": "Serena ",
+    "age": "5 months",
+    "type": "dog",
+    "price": "5000",
+    "status": "sale",
+    "medical": "Vaccinated. ",
+    "description": "A golden retriever, friendly and playful. ",
+    "imageUrl": "/uploads/1753619782063-dog15.avif"
+  },
+  {
+    "id": 1753620811943,
+    "name": "Peach",
+    "age": "2 years",
+    "type": "cat",
+    "price": "0",
+    "status": "adoption",
+    "medical": "Neutered and vaccinated.",
+    "description": "A calm and quiet cat, he really loves to bird watch.",
+    "imageUrl": "/uploads/1753620811940-download (17).jpeg"
+  },
+  {
+    "id": 1753621769699,
+    "name": "Scar",
+    "age": "3 months",
+    "type": "rabbit",
+    "price": "1000",
+    "status": "sale",
+    "medical": "Not vaccinated. ",
+    "description": "playful. ",
+    "imageUrl": "/uploads/1753621769695-rabbit4.avif"
+  },
+  {
+    "id": 1753634684460,
+    "name": "Charlie",
+    "age": "4 years",
+    "type": "dog",
+    "gender": "male",
+    "price": "0",
+    "status": "adoption",
+    "medical": "Neutered.",
+    "description": "Loyal, introverted. ",
+    "imageUrl": "/uploads/1753634684439-pexels-valeriya-1805164.jpg"
+  },
+  {
+    "id": 1753635199032,
+    "name": "Polly ",
+    "age": "5 months",
+    "type": "bird",
+    "gender": "female",
+    "price": "2000",
+    "status": "sale",
+    "medical": "",
+    "description": "A lovely blue parakeet. ",
+    "imageUrl": "/uploads/1753635199030-bird1.avif"
+  },
+  {
+    "id": 1753635373871,
+    "name": "Coco and Cara ",
+    "age": "8 months",
+    "type": "bird",
+    "gender": "female",
+    "price": "0",
+    "status": "adoption",
+    "medical": "",
+    "description": "A pair of chickens.",
+    "imageUrl": "/uploads/1753635373869-bird2.avif"
+  },
+  {
+    "id": 1753635796192,
+    "name": "Bun Bun",
+    "age": "9 months",
+    "type": "rabbit",
+    "gender": "male",
+    "price": "4000",
+    "status": "sale",
+    "medical": "Vaccinated, neutered. ",
+    "description": "A playful little bunny.",
+    "imageUrl": "/uploads/1753635796188-rabbit5.avif"
+  },
+  {
+    "id": 1753641861568,
+    "name": "Fluffy",
+    "age": "3 years",
+    "type": "rabbit",
+    "gender": "female",
+    "price": "3000",
+    "status": "sale",
+    "medical": "Vaccinated.",
+    "description": "The cutest ball of fluff. ",
+    "imageUrl": "/uploads/1753641861559-rabbit6.avif"
+  },
+  {
+    "id": 1753729990520,
+    "name": "floof",
+    "age": "2 years",
+    "type": "rabbit",
+    "gender": "female",
+    "price": "0",
+    "status": "adoption",
+    "medical": "not vaccinated.",
+    "description": "fluffy, playful.",
+    "imageUrl": "/uploads/1753729990361-cat7.png"
+  }
+]

@@ -1,0 +1,141 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff6e5;
+  font-family: 'Poppins', sans-serif;
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+/* Pet Card Grid */
+.pet-listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 3rem 5%;
+}
+
+/* Card Style */
+.pet-card {
+  background-color: #f2e3d5;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.pet-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.pet-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.pet-info h3 {
+  font-family: 'Amatica SC', cursive;
+  font-size: 1.6rem;
+  color: #1e2749;
+  margin-bottom: 0.5rem;
+}
+
+.pet-info p {
+  color: #5e6b63;
+  font-size: 0.95rem;
+}
+
+/* Tag badge */
+.pet-tag {
+  display: inline-block;
+  background-color: #318186;
+  color: white;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-top: 0.5rem;
+}
+
+/* Status color variants */
+.pet-card[data-status='buy'] .pet-tag {
+  background-color: #f9a36c;
+}
+.pet-card[data-status='adopt'] .pet-tag {
+  background-color: #318186;
+}
+.pet-card[data-status='adopt-buy'] .pet-tag {
+  background-color: #1e2749;
+}
+
+/* Filters Section */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 2rem 5%;
+  background-color: #faf0dc;
+  border-radius: 20px;
+  margin: 2rem 5%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #318186;
+  font-family: 'Amarante', cursive;
+}
+
+.filter-group select,
+.filter-group input[type='text'],
+.filter-group input[type='number'] {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 180px;
+  font-size: 1rem;
+}
+
+/* Filter buttons */
+.filter-btn {
+  background-color: #f9a36c;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.filter-btn:hover {
+  background-color: #e89056;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+}

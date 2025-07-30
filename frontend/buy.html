@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy / Sell Pets | CozyPaws</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amarante&family=Amatica+SC&family=Nothing+You+Could+Do&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <style>
+      .page-banner {
+        padding: 5rem 8%;
+        text-align: center;
+      }
+
+      .page-banner h1 {
+        font-family: 'Amatica SC', cursive;
+        align-items: center;
+        font-size: 3.5rem;
+        color: #318186;
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+      }
+
+      .page-banner p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        color: #5e6b63;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem 2rem;
+        padding: 2rem 8%;
+        background: #fff6e5;
+        margin: 3rem auto 2rem;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .filter-bar label {
+        display: flex;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #3e3e3e;
+        min-width: 180px;
+      }
+
+      .filter-bar select,
+      .filter-bar input {
+        margin-top: 0.5rem;
+        padding: 0.6rem 1rem;
+        border-radius: 30px;
+        border: 1px solid #eadac0;
+        background-color: #fff;
+        font-size: 0.95rem;
+        color: #2c2c2c;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+        transition: all 0.2s ease-in-out;
+      }
+
+      .filter-bar select:hover,
+      .filter-bar input:hover {
+        border-color: #f9a36c;
+        box-shadow: 0 4px 10px rgba(249, 163, 108, 0.15);
+      }
+
+      .filter-bar select:focus,
+      .filter-bar input:focus {
+        outline: none;
+        border-color: #f9a36c;
+        box-shadow: 0 0 0 3px rgba(249, 163, 108, 0.2);
+      }
+
+      .buy-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        padding: 3rem 5%;
+      }
+
+      .buy-card {
+        background-color: #f2e3d5;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        position: relative;
+      }
+
+      .buy-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .buy-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+      }
+
+      .price-tag {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f9a36c;
+        color: #fff;
+        padding: 0.3rem 0.7rem;
+        border-radius: 18px;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo">CozyPaws</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="adopt.html">Adopt</a>
+        <a href="#" aria-current="page">Buy</a>
+        <a href="upload.html">Upload</a>
+        <a href="#contact">Contact</a>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+      </nav>
+    </header>
+
+    <section class="page-banner">
+      <h1>Pets Available for Purchase</h1>
+      <p>Browse responsibly sourced pets ready to join your family.</p>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <label
+        >Type:
+        <select id="typeFilter">
+          <option value="all">All</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="rabbit">Rabbit</option>
+          <option value="bird">Bird</option>
+        </select>
+      </label>
+
+      <label
+        >Gender:
+        <select id="genderFilter">
+          <option value="all">All</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+
+      <label
+        >Age:
+        <select id="ageFilter">
+          <option value="all">All</option>
+          <option value="baby">0-1</option>
+          <option value="young">2-5</option>
+          <option value="adult">6-10</option>
+          <option value="senior">11+</option>
+        </select>
+      </label>
+
+      <label>
+        Name:
+        <input type="text" id="nameSearch" placeholder="Search by name" />
+      </label>
+    </div>
+
+    <!-- Grid -->
+    <section class="featured" id="shop">
+      <h2>Find Your New Companion</h2>
+      <div id="shopGrid" class="buy-grid"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div>
+          <h4>CozyPaws</h4>
+          <p>Creating forever homes, one paw at a time 🐾</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="adoption.html">Adopt</a></li>
+            <li><a href="buy.html">Buy/Sell</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <div class="socials">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fab fa-instagram fa-lg"></i
+            ></a>
+            |
+            <a href="https://github.com" target="_blank" aria-label="GitHub"
+              ><i class="fab fa-github fa-lg"></i
+            ></a>
+            |
+            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"
+              ><i class="fab fa-linkedin fa-lg"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 CozyPaws. Made with ❤ by Munazza.</p>
+    </footer>
+
+    <!-- Script -->
+    <script>
+      const grid = document.getElementById('shopGrid');
+      const typeFilter = document.getElementById('typeFilter');
+      const genderFilter = document.getElementById('genderFilter');
+      const ageFilter = document.getElementById('ageFilter');
+      const nameSearch = document.getElementById('nameSearch');
+
+      let allPets = [];
+
+      async function fetchPets() {
+        try {
+          const res = await fetch('http://localhost:3000/api/pets?status=sale');
+          allPets = await res.json();
+          applyFilters();
+        } catch (err) {
+          console.error('Failed to load pets:', err);
+          grid.innerHTML = '<p>Could not load pets. Try again later.</p>';
+        }
+      }
+
+      function applyFilters() {
+        const type = typeFilter.value;
+        const gender = genderFilter.value;
+        const ageGroup = ageFilter.value;
+        const name = nameSearch.value.toLowerCase();
+
+        const filtered = allPets.filter((pet) => {
+          const matchesType =
+            type === 'all' || pet.type?.toLowerCase() === type;
+          const matchesGender =
+            gender === 'all' || pet.gender?.toLowerCase() === gender;
+          const matchesName = pet.name?.toLowerCase().includes(name);
+          const petAge = parseInt(pet.age);
+          let matchesAge = true;
+
+          if (!isNaN(petAge)) {
+            switch (ageGroup) {
+              case 'baby':
+                matchesAge = petAge <= 1;
+                break;
+              case 'young':
+                matchesAge = petAge >= 2 && petAge <= 5;
+                break;
+              case 'adult':
+                matchesAge = petAge >= 6 && petAge <= 10;
+                break;
+              case 'senior':
+                matchesAge = petAge > 10;
+                break;
+            }
+          }
+
+          return matchesType && matchesGender && matchesAge && matchesName;
+        });
+
+        renderPets(filtered);
+      }
+
+      function renderPets(pets) {
+        grid.innerHTML = '';
+
+        if (pets.length === 0) {
+          grid.innerHTML = '<p>No pets match your filters.</p>';
+          return;
+        }
+
+        pets.forEach((pet) => {
+          const card = document.createElement('div');
+          card.className = 'buy-card';
+          card.setAttribute('data-type', pet.type?.toLowerCase());
+
+          card.innerHTML = `
+          <span class="price-tag">₹${pet.price}</span>
+          <img src="${pet.image ? `http://localhost:3000${pet.image}` : 'fallback.jpg'}" alt="${pet.type}">
+          <div class="pet-info">
+            <h3>${pet.name}</h3>
+            <p><strong>${pet.gender}</strong> ${pet.type}, ${pet.age} yrs</p>
+            <p>Breed: ${pet.breed || 'N/A'}</p>
+            <p>${pet.description || ''}</p>
+
+            <a href="buy-form.html?id=${pet.id}" class="alt-btn" style="margin-top:1rem;">Buy Now</a>
+          </div>`;
+          grid.appendChild(card);
+        });
+      }
+
+      [typeFilter, genderFilter, ageFilter].forEach((el) =>
+        el.addEventListener('change', applyFilters)
+      );
+      nameSearch.addEventListener('input', applyFilters);
+
+      fetchPets();
+      // --- Initialize ---
+      window.addEventListener('load', () => {
+        cloneCards();
+        updateFocusCard();
+      });
+
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.removeItem('isLoggedIn'); // or whatever key you're using
+        window.location.href = 'auth.html';
+      });
+    </script>
+  </body>
+</html>
