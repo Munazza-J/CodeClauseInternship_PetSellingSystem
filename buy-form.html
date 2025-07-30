@@ -16,7 +16,6 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
       body {
-        font-family: 'Poppins', sans-serif;
         background-color: #fffaf3;
       }
 
@@ -182,7 +181,7 @@
         if (!currentPet) return alert('Pet details not loaded yet.');
 
         const options = {
-          key: 'YOUR_RAZORPAY_KEY', // Replace this with your actual Razorpay key
+          key: 'rzp_test_e0ZY8uuNNahHMi', // Replace this with your actual Razorpay key
           amount: currentPet.price * 100, // Razorpay uses paise
           currency: 'INR',
           name: 'CozyPaws',

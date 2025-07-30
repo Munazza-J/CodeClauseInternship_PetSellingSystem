@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adopt Pet | CozyPaws</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amarante&family=Amatica+SC&family=Nothing+You+Could+Do&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/styles.css" />
+    <style>
+      body {
+        background-color: #fffaf3;
+      }
+
+      .adopt-form-wrapper {
+        max-width: 800px;
+        margin: 5rem auto;
+        padding: 2.5rem;
+        background-color: #f2e3d5;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .adopt-form-wrapper h2 {
+        text-align: center;
+        font-family: 'Amatica SC', cursive;
+        font-size: 2.8rem;
+        color: #318186;
+        margin-bottom: 1.5rem;
+      }
+
+      .pet-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .pet-preview img {
+        width: 300px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 14px;
+      }
+
+      .pet-pet {
+        flex: 1;
+        min-width: 250px;
+        max-width: 100%;
+        word-wrap: break-word;
+      }
+
+      .pet-pet p {
+        margin: 0.5rem 0;
+        font-size: 1.05rem;
+      }
+
+      #adopt-btn {
+        margin-top: 2rem;
+        display: block;
+        width: 100%;
+        background-color: #6cb87a;
+        color: white;
+        padding: 0.8rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      #adopt-btn:hover {
+        background-color: #5aa768;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="logo">CozyPaws</div>
+      <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="adopt.html" aria-current="page">Adopt</a>
+        <a href="buy.html">Buy</a>
+        <a href="upload.html">Upload</a>
+        <a href="#contact">Contact</a>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+      </nav>
+    </header>
+
+    <!-- Main Section -->
+    <section class="adopt-form-wrapper">
+      <h2>Confirm Adoption</h2>
+      <div id="petDetails">
+        <p>Loading pet details...</p>
+      </div>
+      <button id="adopt-btn">Confirm Adoption</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact" style="margin-top: 4rem">
+      <div class="footer-content">
+        <div>
+          <h4>CozyPaws</h4>
+          <p>Creating forever homes, one paw at a time 🐾</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="adopt.html">Adopt</a></li>
+            <li><a href="buy.html">Buy/Sell</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <div class="socials">
+            <a href="https://instagram.com" target="_blank"
+              ><i class="fab fa-instagram fa-lg"></i
+            ></a>
+            |
+            <a href="https://github.com" target="_blank"
+              ><i class="fab fa-github fa-lg"></i
+            ></a>
+            |
+            <a href="https://linkedin.com" target="_blank"
+              ><i class="fab fa-linkedin fa-lg"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 CozyPaws. Made with ❤ by Munazza.</p>
+    </footer>
+
+    <!-- Script -->
+    <script>
+      const petDetails = document.getElementById('petDetails');
+      const urlParams = new URLSearchParams(window.location.search);
+      const petId = urlParams.get('id');
+      let currentPet = null;
+
+      async function fetchPet() {
+        try {
+          const res = await fetch(`http://localhost:3000/api/pets/${petId}`);
+          const data = await res.json();
+          currentPet = data;
+
+          petDetails.innerHTML = `
+  <div class="pet-preview">
+    <img src="http://localhost:3000${data.image}" alt="${data.name}" />
+    <div class="pet-pet">
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Type:</strong> ${data.type}</p>
+      <p><strong>Breed:</strong> ${data.breed || 'N/A'}</p>
+      <p><strong>Age:</strong> ${data.age} yrs</p>
+      <p><strong>Gender:</strong> ${data.gender}</p>
+      <p><strong>Medical Info:</strong> ${data.medical}</p>
+      <p><strong>Description:</strong> ${data.description}</p>
+    </div>
+  </div>
+`;
+        } catch (err) {
+          petDetails.innerHTML = `<p>Could not fetch pet info.</p>`;
+          console.error(err);
+        }
+      }
+
+      fetchPet();
+
+      document.getElementById('adopt-btn').onclick = async function () {
+        if (!currentPet) return alert('Pet details not loaded yet.');
+
+        try {
+          const res = await fetch(`http://localhost:3000/api/adopt/${petId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            alert('Adoption successful! Thank you for giving a pet a loving home.');
+            window.location.href = 'success.html';
+          } else {
+            alert('Something went wrong: ' + data.message);
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Error processing adoption.');
+        }
+      };
+
+      // Logout button
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>
