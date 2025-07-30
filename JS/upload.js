@@ -65,7 +65,7 @@ window.addEventListener('load', () => {
 
 document.getElementById('logout-btn').addEventListener('click', () => {
   localStorage.removeItem('isLoggedIn'); // or whatever key you're using
-  window.location.href = 'auth.html';
+  window.location.href = 'index.html';
 });
 
 // Hide price input if status is 'adoption'

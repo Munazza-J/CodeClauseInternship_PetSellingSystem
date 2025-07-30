@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       introScreen.style.display = 'none';
 
       if (isLoggedIn) {
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
       } else {
         authWrapper.classList.remove('hidden');
         setTimeout(() => {
@@ -107,7 +107,7 @@ loginForm.addEventListener('submit', async function (e) {
       localStorage.setItem('isLoggedIn', 'true');
       messageBox.textContent = 'Login successful! Redirecting...';
       setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
       }, 1500);
     } else {
       messageBox.textContent = data.message || 'Login failed.';
