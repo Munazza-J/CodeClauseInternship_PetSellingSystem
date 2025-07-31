@@ -173,7 +173,6 @@ app.get('/api/pets/:id', async (req, res) => {
   }
 });
 
-
 // =======================
 
 app.listen(PORT, () => {
@@ -196,29 +195,38 @@ app.post('/api/adopt/:id', async (req, res) => {
       return res.status(400).json({ error: 'This pet is not available for adoption' });
     }
 
-    // Mark as adopted (or delete, or move to adopted_pets table depending on your design)
-    await pool.query(
-      `UPDATE pets SET status = 'adopted' WHERE id = $1`,
-      [id]
-    );
-
-    res.json({ success: true, message: 'Pet successfully adopted!' });
-  } catch (err) {
-    console.error('Adoption error:', err);
-    res.status(500).json({ error: 'Failed to adopt pet' });
-  }
-});
-// Mark pet as adopted
-app.post('/api/adopt/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    // You can update the status to 'adopted' or remove the pet from listing
+    // Update status to unavailable (adopted)
     await pool.query('UPDATE pets SET status = $1 WHERE id = $2', ['adopted', id]);
 
     res.json({ success: true, message: 'Pet successfully adopted!' });
   } catch (err) {
     console.error('Adoption error:', err);
     res.status(500).json({ success: false, message: 'Failed to adopt pet.' });
+  }
+});
+
+// Buy Pet (after payment success)
+app.post('/api/buy/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Check if pet exists and is available for sale
+    const check = await pool.query('SELECT * FROM pets WHERE id = $1', [id]);
+    if (check.rows.length === 0) {
+      return res.status(404).json({ error: 'Pet not found' });
+    }
+
+    const pet = check.rows[0];
+    if (pet.status !== 'sale') {
+      return res.status(400).json({ error: 'This pet is not available for sale' });
+    }
+
+    // Update status to "unavailable"
+    await pool.query('UPDATE pets SET status = $1 WHERE id = $2', ['unavailable', id]);
+
+    res.json({ success: true, message: 'Pet successfully purchased!' });
+  } catch (err) {
+    console.error('Purchase error:', err);
+    res.status(500).json({ success: false, message: 'Failed to purchase pet.' });
   }
 });

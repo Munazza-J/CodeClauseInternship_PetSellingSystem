@@ -105,6 +105,12 @@ loginForm.addEventListener('submit', async function (e) {
     if (data.success) {
       localStorage.setItem('cozypaws_user', JSON.stringify(data.user));
       localStorage.setItem('isLoggedIn', 'true');
+
+      const greeting = document.getElementById('loginGreeting');
+      if (greeting && data.user?.name) {
+        greeting.textContent = `Welcome Back, ${data.user.name}`;
+      }
+
       messageBox.textContent = 'Login successful! Redirecting...';
       setTimeout(() => {
         window.location.href = 'home.html';

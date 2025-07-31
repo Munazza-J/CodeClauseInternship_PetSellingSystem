@@ -126,6 +126,35 @@
         font-weight: bold;
         font-size: 0.9rem;
       }
+      .buy-card .pet-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-top: 0.5rem;
+      }
+
+      .buy-card .pet-info h3 {
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
+        color: #2c2c2c;
+      }
+
+      .buy-card .pet-info p {
+        font-size: 0.95rem;
+        color: #333;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .buy-card .alt-btn {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        font-weight: 500;
+        margin-top: 0.8rem;
+        transition: background 0.3s ease;
+      }
     </style>
   </head>
   <body>
@@ -306,7 +335,7 @@
           <img src="${pet.image ? `http://localhost:3000${pet.image}` : 'fallback.jpg'}" alt="${pet.type}">
           <div class="pet-info">
             <h3>${pet.name}</h3>
-            <p><strong>${pet.gender}</strong> ${pet.type}, ${pet.age} yrs</p>
+            <p><strong>${pet.gender}</strong> ${pet.type}, ${pet.age}</p>
             <p>Breed: ${pet.breed || 'N/A'}</p>
             <p>${pet.description || ''}</p>
 

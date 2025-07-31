@@ -132,7 +132,7 @@
 
       .adopt-card h3 {
         font-family: 'Amatica SC', cursive;
-        font-size: 1.8rem;
+        font-size: 2rem;
         color: #1e2749;
         margin-bottom: 0.3rem;
       }
@@ -141,6 +141,30 @@
         font-family: 'Poppins', sans-serif;
         font-size: 0.95rem;
         color: #5e6b63;
+      }
+
+      .adopt-card .pet-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-top: 0.5rem;
+      }
+
+
+      .adopt-card .pet-info p {
+        font-size: 0.95rem;
+        color: #333;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .adopt-card .alt-btn {
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        font-weight: 500;
+        margin-top: 0.8rem;
+        transition: background 0.3s ease;
       }
     </style>
   </head>
@@ -335,6 +359,7 @@
         });
       }
 
+
       [typeFilter, genderFilter, ageFilter].forEach((el) =>
         el.addEventListener('change', applyFilters)
       );
@@ -349,7 +374,7 @@
       });
 
       document.getElementById('logout-btn').addEventListener('click', () => {
-        localStorage.removeItem('isLoggedIn'); // or whatever key you're using
+        localStorage.removeItem('isLoggedIn');
         window.location.href = 'index.html';
       });
     </script>
